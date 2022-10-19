@@ -31,6 +31,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=sysjam
     env_file:
-      - .env.mysql
+      - .env_mysql
     ports:
       - "3306:3306"
