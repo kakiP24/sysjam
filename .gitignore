@@ -1,0 +1,4 @@
+# Dependency directories
+node_modules/
+mysql/data
+.env

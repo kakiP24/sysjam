@@ -1,0 +1,36 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: frontend-nextjs
+    volumes:
+      - ./frontend:/usr/src/app/frontend
+    command: npm run dev
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    container_name: backend-flask
+    volumes:
+      - ./backend:/usr/src/app/backend
+    command: flask run --host=0.0.0.0
+  mysql:
+    container_name: db-mysql
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=sysjam
+    env_file:
+      - .env.mysql
+    ports:
+      - "3306:3306"
